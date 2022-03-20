@@ -4,7 +4,7 @@ const { VerifyToken } = require("../Helpers/TokenVerify");
 exports.authorization = async (req,res,next) => {
     let token;
     if(req.cookies.accesstoken){
-        token = accesstoken;
+        token = req.cookies.accesstoken;
     }
     else if(req.headers["authorization"]){
         token = req.headers["authorization"].split(" ")[1];
@@ -20,15 +20,18 @@ exports.authorization = async (req,res,next) => {
         const check = await VerifyToken(token);
         if(check.auth === false){
             res.status(401).json({
-                message : auth.info 
+                message : check.info 
             });
         }
-
-        req.user.id = check.info._id;
-        next();
+        else{
+            req.user = check.info.user._id;
+            next();
+        }
+        
 
         
     } catch (error) {
+        console.log(error);
         res.status(500).json({
             message : error
         })

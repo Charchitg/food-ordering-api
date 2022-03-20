@@ -1,10 +1,12 @@
 const User = require('../Models/User');
 
-const SameName =  async( name ) => {
+const SameName =  async ( name ) => {
     const exist = await User.findOne({name : name});
-    if(exist){
+    if(exist !== null){
+        console.log( " true" , exist);
         return true;
     }
+    console.log( " false" , exist);
     return false;
 }
 
@@ -26,7 +28,7 @@ const SameContactnum = async(contactnum) => {
 
 
 const ValidContactnum = async(contactnum) => {
-    const len = contactnum.length();
+    const len = contactnum.length;
     if(len === 10){
         return true;
     }

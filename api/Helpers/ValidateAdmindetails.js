@@ -34,7 +34,7 @@ const SameContactnum = async(contactnum) => {
 
 
 const ValidContactnum = async(contactnum) => {
-    const len = contactnum.length();
+    const len = contactnum.length;
     if(len === 10){
         return true;
     }

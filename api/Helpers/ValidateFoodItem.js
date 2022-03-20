@@ -16,7 +16,7 @@ const SameProductbyName = async (name) => {
 
 const ValidPrice = async (price) => {
     const str = price.toString();
-    const len = str.size();
+    const len = str.length;
     for(let i=0;i<len;i+=1){
         let c = str[i];
         c = c - 'a';

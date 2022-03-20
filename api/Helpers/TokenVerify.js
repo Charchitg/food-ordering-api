@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 exports.VerifyToken = async ( token ) => {
     try {
         const decoded = await jwt.verify( token , process.env.ACCESS_TOKEN_SECRET);
+        //console.log(decoded);
         if(decoded){
             return {
                 auth : true , 
@@ -16,6 +17,7 @@ exports.VerifyToken = async ( token ) => {
             };
         }
     } catch (error) {
+        console.log(error);
         return {
             auth : false , 
             info : error
