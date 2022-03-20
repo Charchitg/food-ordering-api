@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 
-const FoodSchema = mongoose.Schema({
+const FoodSchema = new mongoose.Schema({
     name : {
         type : String ,
         required : true
     } , 
     description : {
-        name : String , 
+        type : String , 
         required : true , 
     } , 
     price : {
