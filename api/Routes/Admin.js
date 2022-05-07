@@ -12,10 +12,10 @@ router.post('/register' , authentication.adminRegistration);
 router.post('/logout' , authorization , authentication.logout );
 
 // food item routes
-// router.post('mylist' , authorization , FoodItem.allitems);
+router.post('/mylist' , authorization , FoodItem.allitems);
 router.post('/mylist/add' , authorization , FoodItem.additem);
 router.post('/mylist/update' , authorization , FoodItem.updateitem);
-router.delete('/mylist/delete/:id' , authorization , FoodItem.deleteitem);
+router.post('/mylist/delete' , authorization , FoodItem.deleteitem);
 
 
 module.exports = router;

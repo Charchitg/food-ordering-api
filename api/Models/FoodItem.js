@@ -19,7 +19,15 @@ const FoodSchema = new mongoose.Schema({
     min_qnty : {
         type : Number , 
         default : 1 
-    } , 
+    } ,
+    status : {
+        type : String , 
+        default : "Available" , 
+        enum : [
+            "Available" , 
+            "Special" ,  
+            "Not Available" ] 
+     } , 
     admin : {
         type : mongoose.Schema.Types.ObjectId , 
         ref : "admin"

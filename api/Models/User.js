@@ -20,7 +20,11 @@ const userSchema = new mongoose.Schema({
     address : {
         type : String , 
         require : true
-    } , 
+    } ,
+    mycart : {
+        type : mongoose.Schema.Types.ObjectId , 
+        ref : 'cart'
+    } ,
     orderhistory : [
         {
             type : mongoose.Schema.Types.ObjectId , 
@@ -33,6 +37,8 @@ const userSchema = new mongoose.Schema({
             ref : 'fooditem'
         }
     ]
+},{
+    timestamps : true
 });
 
 const user = mongoose.model('user' , userSchema);

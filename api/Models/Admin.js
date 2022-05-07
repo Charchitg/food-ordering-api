@@ -41,6 +41,8 @@ const adminSchema = new mongoose.Schema({
             ref : 'fooditem'
         }
     ]
+},  {
+    timestamps : true
 });
 
 const admin = mongoose.model('admin' , adminSchema);
