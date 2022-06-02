@@ -5,7 +5,7 @@ const userservices = require('../Controllers/UserServices');
 
 const router = express.Router();
 
-// User Auth routes
+// User Auth routes ---->  compeleted and tested
 router.post('/login' , authentication.userlogin);
 router.post('/register' , authentication.userRegistration);
 router.post('/logout' , authorization , authentication.logout );

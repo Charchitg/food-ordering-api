@@ -220,27 +220,33 @@ exports.userlogin = async (req, res, next) => {
         const { email, hash } = req.body;
 
         const user = await User.findOne({ email: email });
+        console.log(user);
         const errors = [];
+        let comp = null;
         if (!user) {
             errors.push("invalid username , no user found ");
+            res.status(401).json({ errors: errors });
         }
-
-        const comp = await bcrypt.compare(hash, user.hash);
-
-        if (comp) {
-            const token = await GenerateToken(user);
-
-            res.cookie("accesstoken", token, {
-                expires: (new Date(Date.now() + 86400 * 1000)),
-                httpOnly: true
-            });
-
-            res.status(201).json({ message: "Login Successful", accesstoken: token });
+        else{
+             comp = await bcrypt.compare(hash, user.hash);
+             if (comp) {
+                const token = await GenerateToken(user);
+    
+                res.cookie("accesstoken", token, {
+                    expires: (new Date(Date.now() + 86400 * 1000)),
+                    httpOnly: true
+                });
+    
+                res.status(201).json({ message: "Login Successful", accesstoken: token });
+            }
+            else {
+                errors.push("Incorrect Password ");
+                res.status(200).json({ errors: errors });
+            }
         }
-        else {
-            errors.push("Incorrect Password ");
-            res.status(200).json({ errors: errors });
-        }
+        
+
+        
     } catch (error) {
         console.log(error);
         res.status(401).json({ message: error });
@@ -253,12 +259,14 @@ exports.adminlogin = async (req, res, next) => {
         const { email, hash } = req.body;
 
         const admin = await Admin.findOne({ email: email });
+        console.log(admin);
         const errors = [];
         if (!admin) {
             errors.push("invalid username , no user found ");
+            res.status(401).json({ errors: errors });
         }
-
-        const comp = await bcrypt.compare(hash, admin.hash);
+        else{
+            const comp = await bcrypt.compare(hash, admin.hash);
 
         if (comp) {
             const token = await GenerateToken(admin);
@@ -273,6 +281,7 @@ exports.adminlogin = async (req, res, next) => {
         else {
             errors.push("Incorrect Password ");
             res.status(200).json({ errors: errors });
+        }
         }
     } catch (error) {
         console.log(error);
